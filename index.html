@@ -4,161 +4,114 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IT Message Writer</title>
-    <meta name="description" content="Generate IT emails, chat messages, and ticket updates with clean structure." />
+    <meta name="description" content="Write clean support emails, chats, and ticket updates you can copy." />
     <link rel="stylesheet" href="./style.css" />
+    <script defer src="./tool.js"></script>
   </head>
 
   <body>
-    <a class="skip" href="#main">Skip to content</a>
-
     <header class="topbar">
-      <div class="wrap topbar-inner">
-        <div class="brand">
-          <div class="brand-title">IT Message Writer</div>
-          <div class="brand-sub">Email, chat, and ticket drafts you can copy</div>
+      <div class="topbar-inner">
+        <div>
+          <div class="brand">IT Message Writer</div>
+          <div class="sub">Email, chat, and ticket drafts you can copy</div>
         </div>
-
         <div class="topbar-actions">
-          <a class="btn ghost" href="https://j8roque.github.io/">Back to Portfolio</a>
-          <a class="btn" href="https://github.com/J8Roque/it-message-writer">Repo</a>
+          <a class="btn ghost" id="btnPortfolio" href="#" target="_blank" rel="noreferrer">Back to Portfolio</a>
+          <a class="btn ghost" id="btnRepo" href="#" target="_blank" rel="noreferrer">Repo</a>
         </div>
       </div>
     </header>
 
-    <main id="main" class="wrap">
-      <section class="hero">
-        <div class="hero-card">
-          <h1>Write clear support messages fast</h1>
-          <p class="muted">
-            This tool builds a clean draft plus an optional AI prompt.
-            Do not paste passwords, SSNs, private keys, or sensitive personal data.
-          </p>
+    <main class="wrap">
+      <section class="card">
+        <h1>Write clear support messages fast</h1>
+        <p class="note">
+          Do not paste passwords, SSNs, private keys, or sensitive personal data.
+        </p>
 
-          <div class="grid">
-            <div class="field">
-              <label for="msgType">Message type</label>
-              <select id="msgType">
-                <option value="email" selected>Email</option>
-                <option value="chat">Chat message</option>
-                <option value="ticket">Ticket update</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="scenario">Scenario</label>
-              <select id="scenario">
-                <option value="password_reset">Password reset</option>
-                <option value="account_locked">Account locked</option>
-                <option value="mfa_issue">MFA issue</option>
-                <option value="vpn_issue">VPN or remote access</option>
-                <option value="email_issue">Email issue</option>
-                <option value="printer_issue">Printer issue</option>
-                <option value="software_install">Software install request</option>
-                <option value="access_request">Access request</option>
-                <option value="outage_update">Outage update</option>
-                <option value="follow_up">Follow up</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="audience">Audience</label>
-              <select id="audience">
-                <option value="customer" selected>Customer or end user</option>
-                <option value="manager">Manager</option>
-                <option value="internal">Internal IT</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="tone">Tone</label>
-              <select id="tone">
-                <option value="friendly">Friendly</option>
-                <option value="professional" selected>Professional</option>
-                <option value="firm">Firm</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="recipient">Recipient name (optional)</label>
-              <input id="recipient" type="text" placeholder="Example: Alex" />
-            </div>
-
-            <div class="field">
-              <label for="yourName">Your name</label>
-              <input id="yourName" type="text" value="J Roque" />
-            </div>
-
-            <div class="field">
-              <label for="ticket">Ticket number (optional)</label>
-              <input id="ticket" type="text" placeholder="Example: INC-1042" />
-            </div>
-
-            <div class="field">
-              <label for="eta">ETA or timeframe (optional)</label>
-              <input id="eta" type="text" placeholder="Example: 30 minutes" />
-            </div>
+        <div class="grid">
+          <div class="field">
+            <label for="messageType">Message type</label>
+            <select id="messageType">
+              <option>Email</option>
+              <option>Chat</option>
+              <option>Ticket update</option>
+            </select>
           </div>
 
           <div class="field">
-            <label for="issue">Issue summary</label>
-            <textarea id="issue" rows="3" placeholder="Example: Cannot sign into Outlook, error 0x..."></textarea>
-          </div>
-
-          <div class="grid">
-            <div class="field">
-              <label for="tried">What was tried (optional)</label>
-              <textarea id="tried" rows="3" placeholder="Example: Restarted device, cleared cache..."></textarea>
-            </div>
-            <div class="field">
-              <label for="error">Exact error (optional)</label>
-              <textarea id="error" rows="3" placeholder="Example: Access denied, error code..."></textarea>
-            </div>
+            <label for="scenario">Scenario</label>
+            <select id="scenario"></select>
           </div>
 
           <div class="field">
-            <label for="next">Next step or request</label>
-            <textarea id="next" rows="3" placeholder="Example: Please confirm you can log in now."></textarea>
+            <label for="tone">Tone</label>
+            <select id="tone">
+              <option>Friendly</option>
+              <option selected>Neutral</option>
+              <option>Firm</option>
+            </select>
           </div>
 
-          <div class="actions">
-            <button id="generateBtn" class="btn primary" type="button">Generate</button>
-            <button id="copyDraftBtn" class="btn" type="button">Copy draft</button>
-            <button id="copyPromptBtn" class="btn" type="button">Copy AI prompt</button>
-            <button id="clearBtn" class="btn ghost" type="button">Clear</button>
+          <div class="field">
+            <label for="yourName">Your name</label>
+            <input id="yourName" type="text" placeholder="Example: J Roque" />
           </div>
 
-          <div id="status" class="status" aria-live="polite"></div>
+          <div class="field">
+            <label for="recipient">Recipient name (optional)</label>
+            <input id="recipient" type="text" placeholder="Example: Alex" />
+          </div>
+
+          <div class="field">
+            <label for="ticket">Ticket number (optional)</label>
+            <input id="ticket" type="text" placeholder="Example: INC-1042" />
+          </div>
+
+          <div class="field">
+            <label for="eta">ETA or timeframe (optional)</label>
+            <input id="eta" type="text" placeholder="Example: 30 minutes" />
+          </div>
+
+          <div class="field span2">
+            <label for="summary">Issue summary</label>
+            <textarea id="summary" rows="3" placeholder="Example: Cannot sign into Outlook. Error 0x..."></textarea>
+          </div>
+
+          <div class="field">
+            <label for="tried">What was tried (optional)</label>
+            <textarea id="tried" rows="3" placeholder="Example: Restarted device, cleared cache..."></textarea>
+          </div>
+
+          <div class="field">
+            <label for="nextStep">Next step or request (optional)</label>
+            <textarea id="nextStep" rows="3" placeholder="Example: Please confirm you can sign in now."></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="btnGenerate">Generate</button>
+          <button class="btn" id="btnCopyDraft" disabled>Copy draft</button>
+          <button class="btn" id="btnCopyPrompt" disabled>Copy AI prompt</button>
+          <button class="btn ghost" id="btnClear">Clear</button>
+          <span class="toast" id="toast" aria-live="polite"></span>
         </div>
       </section>
 
-      <section class="outputs">
-        <div class="out-card">
-          <div class="out-head">
-            <div>
-              <div class="out-title">Draft</div>
-              <div class="muted small">Ready to send version</div>
-            </div>
-          </div>
-          <textarea id="draftOut" rows="14" spellcheck="false"></textarea>
-        </div>
+      <section class="two">
+        <section class="card">
+          <div class="card-title">Draft</div>
+          <div class="card-sub">Ready to send version</div>
+          <pre class="output" id="draftOut">Fill the form and click Generate.</pre>
+        </section>
 
-        <div class="out-card">
-          <div class="out-head">
-            <div>
-              <div class="out-title">AI prompt</div>
-              <div class="muted small">Paste into ChatGPT for an improved version</div>
-            </div>
-          </div>
-          <textarea id="promptOut" rows="14" spellcheck="false"></textarea>
-        </div>
+        <section class="card">
+          <div class="card-title">AI prompt</div>
+          <div class="card-sub">Optional: paste into ChatGPT for a refined version</div>
+          <pre class="output" id="promptOut">Generate a draft first to create the prompt.</pre>
+        </section>
       </section>
-
-      <footer class="footer">
-        <div class="muted small">© J Roque</div>
-        <div class="muted small">Hosted on GitHub Pages</div>
-      </footer>
     </main>
-
-    <script src="./tool.js"></script>
   </body>
 </html>
