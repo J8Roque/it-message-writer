@@ -1,0 +1,61 @@
+:root{
+  --bg:#0b0f1a;
+  --card:#0f172a;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+  --border:rgba(148,163,184,.25);
+  --brand:#60a5fa;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(800px 500px at 30% 20%, rgba(96,165,250,.18), transparent 60%),
+              radial-gradient(700px 450px at 70% 40%, rgba(167,139,250,.14), transparent 60%),
+              var(--bg);
+  color:var(--text);
+}
+a{color:inherit}
+.container{max-width:1050px;margin:0 auto;padding:18px}
+.skip-link{position:absolute;left:-9999px}
+.skip-link:focus{left:12px;top:12px;background:#111827;padding:10px;border-radius:10px}
+.topbar{
+  position:sticky;top:0;z-index:5;
+  background: rgba(11,15,26,.75);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:700;letter-spacing:.2px}
+.section{padding:18px 0}
+.section-head h2{margin:0 0 10px 0}
+.card{
+  background: rgba(15,23,42,.75);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+.muted{color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width: 860px){.grid-2{grid-template-columns:1fr}}
+.stack{display:flex;flex-direction:column;gap:6px}
+.item-title{font-weight:700}
+.item-meta{color:var(--muted);font-size:.9rem}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 12px;border-radius:12px;
+  border:1px solid var(--border);
+  background: rgba(2,6,23,.35);
+  color:var(--text);
+  text-decoration:none;
+}
+.btn.primary{
+  background: rgba(96,165,250,.18);
+  border-color: rgba(96,165,250,.45);
+}
+.btn.ghost{background:transparent}
+textarea.btn, input.btn, select.btn{justify-content:flex-start}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px}
+.footer{border-top:1px solid var(--border);margin-top:26px}
+.footer-inner{display:flex;justify-content:space-between;gap:12px}
