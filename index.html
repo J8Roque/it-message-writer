@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Message Writer Tool</title>
+    <meta
+      name="description"
+      content="A prompt and draft builder for IT emails, chats, and ticket updates."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand">J Roque</div>
+        <div class="cta-row">
+          <a class="btn ghost" href="./">Back to Portfolio</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="container">
+      <section class="section">
+        <div class="section-head">
+          <h2>AI Email and Message Writer</h2>
+        </div>
+
+        <div class="card">
+          <p class="muted" style="margin-top: 0">
+            This tool creates a clean IT draft and an optional AI prompt you can paste into ChatGPT.
+            Do not paste passwords or private data.
+          </p>
+
+          <div class="grid-2" style="margin-top: 12px">
+            <div class="stack">
+              <label class="muted" for="msgType">Message type</label>
+              <select id="msgType" class="btn" style="width: 100%">
+                <option value="email">Email</option>
+                <option value="chat">Chat message</option>
+                <option value="ticket">Ticket update</option>
+              </select>
+            </div>
+
+            <div class="stack">
+              <label class="muted" for="scenario">Scenario</label>
+              <select id="scenario" class="btn" style="width: 100%">
+                <option value="password_reset">Password reset</option>
+                <option value="account_locked">Account locked</option>
+                <option value="mfa_issue">MFA issue</option>
+                <option value="vpn_issue">VPN or remote access</option>
+                <option value="email_issue">Email issue</option>
+                <option value="printer_issue">Printer issue</option>
+                <option value="software_install">Software install request</option>
+                <option value="access_request">Access request</option>
+                <option value="outage_update">Outage update</option>
+                <option value="follow_up">Follow up</option>
+              </select>
+            </div>
+
+            <div class="stack">
+              <label class="muted" for="audience">Audience</label>
+              <select id="audience" class="btn" style="width: 100%">
+                <option value="customer">Customer or end user</option>
+                <option value="manager">Manager</option>
+                <option value="internal">Internal IT</option>
+              </select>
+            </div>
+
+            <div class="stack">
+              <label class="muted" for="tone">Tone</label>
+              <select id="tone" class="btn" style="width: 100%">
+                <option value="friendly">Friendly</option>
+                <option value="professional" selected>Professional</option>
+                <option value="firm">Firm</option>
+              </select>
+            </div>
+
+            <div class="stack">
+              <label class="muted" for="name">Recipient name (optional)</label>
+              <input id="name" class="btn" style="width: 100%" placeholder="Example: Alex" />
+            </div>
+
+            <div class="stack">
+              <label class="muted" for="yourName">Your name</label>
+              <input id="yourName" class="btn" style="width: 100%" value="J Roque" />
+            </div>
+
+            <div class="stack">
+              <label class="muted" for="ticket">Ticket number (optional)</label>
+              <input id="ticket" class="btn" style="width: 100%" placeholder="Example: INC-1042" />
+            </div>
+
+            <div class="stack">
+              <label class="muted" for="eta">ETA or timeframe (optional)</label>
+              <input id="eta" class="btn" style="width: 100%" placeholder="Example: 30 minutes" />
+            </div>
+          </div>
+
+          <div class="stack" style="margin-top: 14px">
+            <label class="muted" for="issue">Issue summary</label>
+            <textarea
+              id="issue"
+              class="btn"
+              style="width: 100%; min-height: 90px"
+              placeholder="Example: User cannot sign into Outlook, receives error code 0x..."
+            ></textarea>
+          </div>
+
+          <div class="grid-2" style="margin-top: 12px">
+            <div class="stack">
+              <label class="muted" for="tried">What was tried (optional)</label>
+              <textarea
+                id="tried"
+                class="btn"
+                style="width: 100%; min-height: 90px"
+                placeholder="Example: Restarted device, cleared cache, verified network..."
+              ></textarea>
+            </div>
+
+            <div class="stack">
+              <label class="muted" for="error">Exact error (optional)</label>
+              <textarea
+                id="error"
+                class="btn"
+                style="width: 100%; min-height: 90px"
+                placeholder="Example: 'Access denied' or error code"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="stack" style="margin-top: 12px">
+            <label class="muted" for="next">Next step or request</label>
+            <textarea
+              id="next"
+              class="btn"
+              style="width: 100%; min-height: 90px"
+              placeholder="Example: Please confirm if you can log in now, or please approve access for..."
+            ></textarea>
+          </div>
+
+          <div class="cta-row" style="margin-top: 14px">
+            <button id="generateBtn" class="btn primary" type="button">Generate</button>
+            <button id="copyDraftBtn" class="btn" type="button">Copy draft</button>
+            <button id="copyPromptBtn" class="btn" type="button">Copy AI prompt</button>
+            <button id="clearBtn" class="btn ghost" type="button">Clear</button>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border); margin: 16px 0" />
+
+          <div class="grid-2">
+            <div class="stack">
+              <div class="item-title">Draft</div>
+              <div class="item-meta">This is the ready to send version.</div>
+              <textarea id="draftOut" class="btn" style="width: 100%; min-height: 220px"></textarea>
+            </div>
+
+            <div class="stack">
+              <div class="item-title">AI prompt</div>
+              <div class="item-meta">Paste this into ChatGPT if you want an even better version.</div>
+              <textarea id="promptOut" class="btn" style="width: 100%; min-height: 220px"></textarea>
+            </div>
+          </div>
+
+          <div class="muted" id="status" style="margin-top: 12px"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="muted">© J Roque</div>
+        <div class="muted">Built with GitHub Pages</div>
+      </div>
+    </footer>
+
+    <script type="module" src="./tool.js"></script>
+  </body>
+</html>
